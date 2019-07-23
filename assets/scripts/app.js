@@ -8,4 +8,21 @@
 
 $(() => {
   // your JS code goes here
+  $('#show-sign-up').on('click', function () {
+    $('#sign-up').show()
+    $('#show-sign-up').hide()
+  })
+  $('#sign-up').on('submit', authEvents.onSignUp).hide()
+  $('#show-sign-in').on('click', function () {
+    $('#sign-in').show()
+    $('#show-sign-in').hide()
+  })
+  $('#sign-in').on('submit', authEvents.onSignIn).hide()
+  $('#quick').on('click', authEvents.onQuickSignIn)
+  $('#show-change-pw').on('click', function () {
+    $('#change-pw').show()
+    $('#show-change-pw').hide()
+  }).hide()
+  $('#change-pw').on('submit', authEvents.onChangePw).hide()
+  $('#sign-out').on('click', authEvents.onSignOut).hide()
 })
