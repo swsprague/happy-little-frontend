@@ -24,10 +24,20 @@ const onSignIn = event => {
     .catch(ui.signInFailure)
 }
 
+const onQuickSignIn = event => {
+  event.preventDefault()
+
+  const form = event.target
+  const formData = getFormFields(form)
+  api.quickSignIn(formData)
+    .then(ui.signInSuccessful)
+    .catch(ui.signInFailure)
+}
+
 module.exports = {
   onSignUp,
-  onSignIn
-  // onQuickSignIn,
+  onSignIn,
+  onQuickSignIn
   // onChangePw,
   // onSignOut
 }
