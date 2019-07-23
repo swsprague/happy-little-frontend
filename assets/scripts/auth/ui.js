@@ -29,11 +29,28 @@ const signUpFailure = () => {
   failureMessage('Sign Up failure :(')
 }
 
+const signInSuccessful = responseData => {
+  successMessage('You Signed In Successfully!')
+
+  store.user = responseData.user
+  // keep track of user so we have token for api
+  // we use store so we can access the token in any file.
+  $('#show-change-pw').show()
+  $('#sign-out').show()
+  $('#sign-in').hide()
+  $('#sign-up').hide()
+  $('#show-sign-up').hide()
+}
+
+const signInFailure = () => {
+  failureMessage('Sign In Failed, Wrong Email Or Password :(')
+}
+
 module.exports = {
   signUpSuccessful,
-  signUpFailure
-  // signInSuccessful,
-  // signInFailure,
+  signUpFailure,
+  signInSuccessful,
+  signInFailure
   // changePwSuccess,
   // changePwFailure,
   // signOutSuccess,
