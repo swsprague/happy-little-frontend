@@ -46,13 +46,36 @@ const signInFailure = () => {
   failureMessage('Sign In Failed, Wrong Email Or Password :(')
 }
 
+const changePwSuccess = () => {
+  successMessage('Changed Password Successfully!')
+  $('#change-pw').hide()
+  $('#show-change-pw').show()
+}
+
+const changePwFailure = () => {
+  failureMessage('Password Change failure :(')
+}
+
+const signOutSuccess = () => {
+  successMessage('Signed Out Successfully!')
+  $('#change-pw').hide()
+  $('#show-change-pw').hide()
+  $('#sign-out').hide()
+  $('#show-sign-in').show()
+  $('#show-sign-up').show()
+}
+
+const signOutFailure = () => {
+  failureMessage('Sign Out Failure')
+}
+
 module.exports = {
   signUpSuccessful,
   signUpFailure,
   signInSuccessful,
-  signInFailure
-  // changePwSuccess,
-  // changePwFailure,
-  // signOutSuccess,
-  // signOutFailure
+  signInFailure,
+  changePwSuccess,
+  changePwFailure,
+  signOutSuccess,
+  signOutFailure
 }
