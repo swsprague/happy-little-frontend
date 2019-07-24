@@ -7,6 +7,7 @@
 // require('./example')
 
 const authEvents = require('./auth/events')
+const resEvents = require('./resource/resource-events')
 
 $(() => {
   // your JS code goes here
@@ -27,4 +28,6 @@ $(() => {
   }).hide()
   $('#change-pw').on('submit', authEvents.onChangePw).hide()
   $('#sign-out').on('click', authEvents.onSignOut).hide()
+  $('#show-videos').on('click', resEvents.onViewAvailableVideos)
+  $('#ross-imizer').on('click', resEvents.onRandomVideo)
 })
