@@ -4,8 +4,7 @@ curl "http://localhost:4741/playlists" \
   --header "Content-Type: application/json" \
   --data '{
     "playlist": {
-      "name": "'"${PLAYLIST_ID}"'",
-      "video_id": "'"${VIDEO_ID}"'"
+      "title": "'"${TITLE}"'"
     }
   }'
 
