@@ -22,6 +22,9 @@ const failureMessage = message => {
 
 const indexVideosSuccess = responseData => {
   store.videos = responseData.videos
+  console.log('responseData is ', responseData)
+  console.log('store playlist is ', store.playlistId)
+  // const playlist = store.playlist
   // console.log('index games success ', responseData)
   $('#video-index').html('')
   $('#total-videos').text(`Total Videos: ${store.videos.length}`).show()
@@ -31,6 +34,7 @@ const indexVideosSuccess = responseData => {
       <h3>Episode Title: ${video.name}</h3>
       <h4>Episode Number: ${video.episode_number}</h4>
       <h4>Original Air Date: ${video.air_date}</h4>
+      <button class="add-vid btn btn-primary" data-video="${video.id}">Add to Playlist</button>
       <iframe width="560" height="315" src="https://www.youtube.com/embed/${video.youtube_id}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       <p>Description: ${video.description}</p>
 
@@ -40,6 +44,8 @@ const indexVideosSuccess = responseData => {
     $('#video-index').append(videosHtml)
   })
 }
+
+// playlist="${playlist.playlist.id}
 
 const indexVideosFail = function () {
   // console.log('Index Games Failed ', error)
@@ -66,19 +72,6 @@ const showRandomVideoSuccess = responseData => {
     `)
 
   $('#video-index').append(videosHtml)
-
-  // store.video = responseData.video
-
-  // $('#video-index').html('')
-  //
-  // $('#video-index').html(`
-  //     <p>Game ID: ${store.video.episode_number}<p>
-  //     <p>Completed: ${responseData.game.over}</p>
-  //
-  //     <br>
-  //   `)
-  //
-  // $('form').trigger('reset')
 }
 
 const showVideoFail = function () {
@@ -87,14 +80,15 @@ const showVideoFail = function () {
 }
 
 const createPlaylistSuccess = responseData => {
-  const playlist = responseData.playlist
+  store.playlist = responseData.playlist
 
   successMessage('Successfully Created Playlist')
   $('#video-index').html('')
   // $('#total-videos').text(`Total Videos: ${store.videos.length}`).show()
 
   const videosHtml = (`
-      <h3>Playlist: ${playlist.title}</h3>
+      <h3>Playlist: ${store.playlist.title}</h3>
+      <button class="add-state btn btn-primary col-mb-3" data-playlist="${store.playlist.id}">Add Episodes</button>
     `)
 
   $('#video-index').append(videosHtml)
@@ -115,14 +109,33 @@ const viewPlaylistsSuccess = responseData => {
       <h3>Playlist Title: ${playlist.title}</h3>
       <h4>Number of Episodes: ${playlist.videos.length}</h4>
       <button class="change-title btn btn-primary col-mb-3">Change Title</button>
-      <button class="add btn btn-primary col-mb-3">Add Episodes</button>
+      <button class="add-state btn btn-primary col-mb-3" data-playlist="${playlist.id}">Add Episodes</button>
       <button class="show btn btn-primary col-mb-3" data-playlist="${playlist.id}">Show Episodes</button>
 
       <br>
     `)
 
     $('#video-index').append(playlistsHtml)
+
+    store.playlistId = playlist.id
   })
+}
+
+const viewPlaylistsFail = function () {
+  // console.log('Index Games Failed ', error)
+  failureMessage('No Playlists Found')
+}
+
+const addVideoToPlaylist = responseData => {
+
+  store.videos = responseData.videos
+  store.playlists = responseData.playlists
+  console.log('store.videos is ', store.videos)
+  console.log('store.playlists is ', store.playlists)
+  // if (store.playlist.videos.indexOf(event.target.data('video') === -1) {
+  //   successMessage('Added Video To Playlist')
+  // }
+  successMessage('Added Video To Playlist')
 }
 
 const showPlaylistEpisodes = responseData => {
@@ -150,11 +163,6 @@ const showPlaylistEpisodes = responseData => {
       $('#episodes-index').html(episodeHtml)
     })
   }
-}
-
-const viewPlaylistsFail = function () {
-  // console.log('Index Games Failed ', error)
-  failureMessage('No Playlists Found')
 }
 
 const choosePlaylistSuccess = responseData => {
@@ -192,5 +200,6 @@ module.exports = {
   showVideoFail,
   createPlaylistSuccess,
   createPlaylistFail,
-  showPlaylistEpisodes
+  showPlaylistEpisodes,
+  addVideoToPlaylist
 }

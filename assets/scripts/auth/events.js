@@ -3,6 +3,7 @@
 const getFormFields = require('../../../lib/get-form-fields')
 const api = require('./api')
 const ui = require('./ui')
+const resUi = require('../resource/resource-ui')
 
 const onSignUp = event => {
   event.preventDefault()
@@ -21,6 +22,7 @@ const onSignIn = event => {
   const formData = getFormFields(form)
   api.signIn(formData)
     .then(ui.signInSuccessful)
+    .then(resUi.viewPlaylistsSuccess)
     .catch(ui.signInFailure)
 }
 

@@ -3,7 +3,7 @@
 const api = require('./resource-api')
 const ui = require('./resource-ui')
 const resourceLogic = require('./resource-logic')
-// const store = require('../store')
+const store = require('../store')
 const getFormFields = require('./../../../lib/get-form-fields')
 
 const onViewAvailableVideos = data => {
@@ -59,7 +59,21 @@ const onShowPlaylistEpisodes = data => {
 
   api.showPlaylist(currentPlaylist)
     .then(ui.showPlaylistEpisodes)
-    .catch(ui.showPlaylistEpisodes)
+    .catch(console.error)
+}
+
+const onAddVideoToPlaylist = data => {
+  event.preventDefault()
+  const target = event.target
+  console.log('target is ', target)
+  console.log('store.playlist.id is ', store.playlist)
+  const currentPlaylist = store.playlist.id
+  const currentVideo = $(target).data('video')
+  // console.log('cp is ', currentPlaylist)
+
+  api.addVideoToPlaylist(currentPlaylist, currentVideo)
+    .then(ui.addVideoToPlaylist)
+    .catch(console.error)
 }
 
 const onChoosePlaylist = data => {
@@ -79,6 +93,7 @@ module.exports = {
   onViewPlaylists,
   onShowPlaylistEpisodes,
   onViewAvailableVideos,
-  onRandomVideo
+  onRandomVideo,
+  onAddVideoToPlaylist
 
 }
