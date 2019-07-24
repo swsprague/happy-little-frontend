@@ -54,6 +54,27 @@ const indexPlaylists = function () {
   })
 }
 
+const deletePlaylist = function (currentPlaylist) {
+  return $.ajax({
+    url: config.apiUrl + '/playlists/' + currentPlaylist,
+    method: 'DELETE',
+    headers: {
+      Authorization: 'Token token=' + store.user.token
+    }
+  })
+}
+
+const updatePlaylist = function (formData, currentPlaylist) {
+  return $.ajax({
+    url: config.apiUrl + '/playlists/' + currentPlaylist,
+    method: 'PATCH',
+    data: formData,
+    headers: {
+      Authorization: 'Token token=' + store.user.token
+    }
+  })
+}
+
 const addVideoToPlaylist = function (currentPlaylist, currentVideo) {
   return $.ajax({
     url: config.apiUrl + '/playlist_videos',
@@ -77,7 +98,8 @@ module.exports = {
   indexPlaylists,
   showPlaylist,
   addVideoToPlaylist,
-  // updatePlaylist,
+  updatePlaylist,
+  deletePlaylist,
   indexVideos,
   showVideo
 }

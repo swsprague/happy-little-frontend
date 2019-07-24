@@ -36,6 +36,7 @@ $(() => {
     $('#new-playlist').hide()
   }).hide()
   $('#playlist-form').on('submit', resEvents.onCreatePlaylist).hide()
+  $('#show-delete').on('click', resEvents.onSetDeleteState).hide()
   $('body').on('click', '#add-to-playlist', resEvents.onChoosePlaylist)
   $('body').on('click', '.show', resEvents.onShowPlaylistEpisodes)
   $('body').on('click', '.add-state', resEvents.onViewAvailableVideos)

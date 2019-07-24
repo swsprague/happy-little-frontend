@@ -102,6 +102,7 @@ const createPlaylistFail = function () {
 const viewPlaylistsSuccess = responseData => {
   store.playlists = responseData.playlists
   console.log('responseData is ', responseData)
+  $('#show-delete').show()
   $('#video-index').html('')
 
   store.playlists.forEach(function (playlist) {
@@ -111,6 +112,7 @@ const viewPlaylistsSuccess = responseData => {
       <button class="change-title btn btn-primary col-mb-3">Change Title</button>
       <button class="add-state btn btn-primary col-mb-3" data-playlist="${playlist.id}">Add Episodes</button>
       <button class="show btn btn-primary col-mb-3" data-playlist="${playlist.id}">Show Episodes</button>
+
 
       <br>
     `)
@@ -185,9 +187,53 @@ const choosePlaylistFail = function () {
   failureMessage('No Playlists Created Yet')
 }
 
-// const createPlaylistVideoRel = responseData => {
-//
-// }
+const setDeleteStateSuccess = () => {
+  const playlists = store.playlists
+  console.log('playlists are ', playlists)
+  $('#video-index').html('')
+
+  playlists.forEach(function (playlist) {
+    const playlistsHtml = (`
+      <h3>Playlist Title: ${playlist.title}</h3>
+      <h4>Number of Episodes: ${playlist.videos.length}</h4>
+      <button class="delete-playlist btn btn-primary col-mb-3" data-del-playlist="${playlist.id}">Delete This Playlist</button>
+
+
+      <br>
+    `)
+
+    $('#video-index').html(playlistsHtml)
+  })
+}
+
+const setDeleteStateFail = function () {
+  // console.log('Index Games Failed ', error)
+  failureMessage('No Playlists To Delete!')
+}
+
+const deletePlaylistSuccess = () => {
+  const playlists = store.playlists
+  successMessage('Successfully deleted playlist')
+  // console.log('playlists are ', playlists)
+  $('#video-index').html('')
+
+  playlists.forEach(function (playlist) {
+    const playlistsHtml = (`
+      <h3>Playlist Title: ${playlist.title}</h3>
+      <h4>Number of Episodes: ${playlist.videos.length}</h4>
+      <button class="delete-playlist btn btn-primary col-mb-3" data-del-playlist="${playlist.id}">Delete This Playlist</button>
+
+
+      <br>
+    `)
+
+    $('#video-index').html(playlistsHtml)
+  })
+}
+
+const deletePlaylistFail = function () {
+  failureMessage('Unable to Delete Playlist')
+}
 
 module.exports = {
   viewPlaylistsSuccess,
@@ -201,5 +247,9 @@ module.exports = {
   createPlaylistSuccess,
   createPlaylistFail,
   showPlaylistEpisodes,
-  addVideoToPlaylist
+  addVideoToPlaylist,
+  setDeleteStateSuccess,
+  setDeleteStateFail,
+  deletePlaylistSuccess,
+  deletePlaylistFail
 }

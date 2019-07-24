@@ -87,6 +87,25 @@ const onChoosePlaylist = data => {
     .catch(ui.choosePlaylistFail)
 }
 
+const onSetDeleteState = data => {
+  event.preventDefault()
+
+  api.indexPlaylists()
+    .then(ui.setDeleteStateSuccess)
+    .catch(ui.setDeleteStateFail)
+}
+
+const onDeletePlaylist = data => {
+  event.preventDefault()
+  const target = event.target
+  console.log('target is ', target)
+  const currentPlaylist = $(target).data('del-playlist')
+
+  api.deletePlaylist(currentPlaylist)
+    .then(ui.deletePlaylistSuccess)
+    .catch(ui.deletePlaylistFail)
+}
+
 module.exports = {
   onCreatePlaylist,
   onChoosePlaylist,
@@ -94,6 +113,8 @@ module.exports = {
   onShowPlaylistEpisodes,
   onViewAvailableVideos,
   onRandomVideo,
-  onAddVideoToPlaylist
+  onAddVideoToPlaylist,
+  onSetDeleteState,
+  onDeletePlaylist
 
 }
