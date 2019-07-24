@@ -30,10 +30,11 @@ $(() => {
   $('#sign-out').on('click', authEvents.onSignOut).hide()
   $('#show-videos').on('click', resEvents.onViewAvailableVideos).hide()
   $('#ross-imizer').on('click', resEvents.onRandomVideo).hide()
-  $('#view-playlists').hide()
+  $('#view-playlists').on('click', resEvents.onViewPlaylists).hide()
   $('#new-playlist').on('click', function () {
     $('#playlist-form').show()
     $('#new-playlist').hide()
   }).hide()
   $('#playlist-form').on('submit', resEvents.onCreatePlaylist).hide()
+  $('#add-to-playlist').on('click', resEvents.onChoosePlaylist)
 })

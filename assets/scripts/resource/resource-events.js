@@ -35,15 +35,37 @@ const onCreatePlaylist = event => {
   const form = event.target
   const formData = getFormFields(form)
 
-  console.log('This is the form data ', formData.playlist)
-
   api.createPlaylist(formData)
     .then(ui.createPlaylistSuccess)
     .catch(ui.createPlaylistFail)
 }
 
+const onViewPlaylists = data => {
+  event.preventDefault()
+
+  // const form = event.target
+  // const formData = getFormFields(form)
+
+  api.indexPlaylists()
+    .then(ui.viewPlaylistsSuccess)
+    .catch(ui.viewPlaylistsFail)
+}
+
+const onChoosePlaylist = data => {
+  event.preventDefault()
+
+  // const form = event.target
+  // const formData = getFormFields(form)
+
+  api.indexPlaylists()
+    .then(ui.choosePlaylistSuccess)
+    .catch(ui.choosePlaylistFail)
+}
+
 module.exports = {
   onCreatePlaylist,
+  onChoosePlaylist,
+  onViewPlaylists,
   // onUpdateGame,
   onViewAvailableVideos,
   onRandomVideo

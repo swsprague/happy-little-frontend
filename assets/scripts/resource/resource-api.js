@@ -34,8 +34,21 @@ const createPlaylist = formData => {
   })
 }
 
+const indexPlaylists = function () {
+  return $.ajax({
+    url: config.apiUrl + '/playlists',
+    method: 'GET',
+    headers: {
+      Authorization: 'Token token=' + store.user.token
+    }
+  })
+}
+
+// const updatePlaylist = formData
+
 module.exports = {
   createPlaylist,
+  indexPlaylists,
   // updatePlaylist,
   indexVideos,
   showVideo
