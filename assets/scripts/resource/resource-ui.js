@@ -2,14 +2,14 @@
 
 const store = require('../store')
 
-// const successMessage = message => {
-//   $('#game-status').text(message).show().fadeOut(3000)
-//   $('#game-status').addClass('success')
-//   $('#game-status').removeClass('failure')
-//
-//   // clear forms
-//   $('form').trigger('reset')
-// }
+const successMessage = message => {
+  $('#video-status').text(message).show()
+  $('#video-status').addClass('success')
+  $('#video-status').removeClass('failure')
+
+  // clear forms
+  $('form').trigger('reset')
+}
 
 const failureMessage = message => {
   $('#video-status').text(message)
@@ -85,6 +85,27 @@ const showVideoFail = function () {
   failureMessage('Cannot Load Video')
 }
 
+const createPlaylistSuccess = responseData => {
+  store.playlist = responseData.playlist
+  console.log('responseData is ', responseData)
+  console.log('store playlist is ', store.playlist)
+
+  successMessage('Successfully Created Playlist')
+  $('#video-index').html('')
+  // $('#total-videos').text(`Total Videos: ${store.videos.length}`).show()
+
+  const videosHtml = (`
+      <h3>Playlist: ${store.playlist.title}</h3>
+    `)
+
+  $('#video-index').append(videosHtml)
+}
+
+const createPlaylistFail = function () {
+  // console.log('Index Games Failed ', error)
+  failureMessage('Unable to Create Playlist')
+}
+
 module.exports = {
   // newGameStart,
   // newGameFail,
@@ -93,7 +114,7 @@ module.exports = {
   indexVideosSuccess,
   indexVideosFail,
   showRandomVideoSuccess,
-  showVideoFail
-  // showGameSuccess,
-  // showGameFail
+  showVideoFail,
+  createPlaylistSuccess,
+  createPlaylistFail
 }

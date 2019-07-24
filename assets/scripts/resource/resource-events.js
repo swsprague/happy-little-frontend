@@ -4,7 +4,7 @@ const api = require('./resource-api')
 const ui = require('./resource-ui')
 const resourceLogic = require('./resource-logic')
 // const store = require('../store')
-// const getFormFields = require('./../../../lib/get-form-fields')
+const getFormFields = require('./../../../lib/get-form-fields')
 
 const onViewAvailableVideos = data => {
   // const videoUser = store.user
@@ -23,17 +23,27 @@ const onViewAvailableVideos = data => {
 
 const onRandomVideo = event => {
   event.preventDefault()
-  // const formData = getFormFields(event.target)
-
-  // console.log('This is the form data ', formData.game)
 
   api.showVideo(resourceLogic.getRandomNumber(1, 26))
     .then(ui.showRandomVideoSuccess)
     .catch(ui.showVideoFail)
 }
 
+const onCreatePlaylist = event => {
+  event.preventDefault()
+
+  const form = event.target
+  const formData = getFormFields(form)
+
+  console.log('This is the form data ', formData.playlist)
+
+  api.createPlaylist(formData)
+    .then(ui.createPlaylistSuccess)
+    .catch(ui.createPlaylistFail)
+}
+
 module.exports = {
-  // onNewGame,
+  onCreatePlaylist,
   // onUpdateGame,
   onViewAvailableVideos,
   onRandomVideo

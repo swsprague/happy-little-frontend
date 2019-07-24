@@ -41,7 +41,6 @@
         <button id="show-change-pw" class="btn btn-primary col-mb-3">Change Password</button>
 
         <form id="change-pw" class="col-md-6">
-          <!-- <h2>Change Password</h2> -->
           <input class="form-control mb-1" type="password" name="passwords[old]" placeholder="Old Password">
           <input class="form-control mb-1" type="password" name="passwords[new]" placeholder="New Password">
           <button class="btn btn-primary">Change Password</button>
@@ -55,7 +54,12 @@
 
         <button id="view-playlists" class="btn btn-primary col-mb-3">View Playlists</button>
 
-        <button id="create-playlists" class="btn btn-primary col-mb-3">Create Playlist</button>
+        <button id="new-playlist" class="btn btn-primary col-mb-3">New Playlist</button>
+
+        <form id="playlist-form" class="col-md-6">
+          <input class="form-control mb-1" type="text" name="playlist[title]" placeholder="Playlist Title">
+          <button class="btn btn-primary">Create Playlist</button>
+        </form>
 
 
 

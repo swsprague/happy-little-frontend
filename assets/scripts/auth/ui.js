@@ -37,7 +37,12 @@ const signInSuccessful = responseData => {
   // we use store so we can access the token in any file.
   $('#show-change-pw').show()
   $('#sign-out').show()
+  $('#show-videos').show()
+  $('#ross-imizer').show()
+  $('#new-playlist').show()
+  $('#view-playlists').show()
   $('#sign-in').hide()
+  $('#show-sign-in').hide()
   $('#sign-up').hide()
   $('#show-sign-up').hide()
 }
