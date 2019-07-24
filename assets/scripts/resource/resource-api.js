@@ -34,6 +34,16 @@ const createPlaylist = formData => {
   })
 }
 
+const showPlaylist = function (currentPlaylist) {
+  return $.ajax({
+    url: config.apiUrl + '/playlists/' + currentPlaylist,
+    method: 'GET',
+    headers: {
+      Authorization: 'Token token=' + store.user.token
+    }
+  })
+}
+
 const indexPlaylists = function () {
   return $.ajax({
     url: config.apiUrl + '/playlists',
@@ -44,11 +54,29 @@ const indexPlaylists = function () {
   })
 }
 
+const addVideoToPlaylist = function (currentPlaylist, currentVideo) {
+  return $.ajax({
+    url: config.apiUrl + '/playlist_videos',
+    method: 'POST',
+    headers: {
+      Authorization: 'Token token=' + store.user.token
+    },
+    data: {
+      playlist_video: {
+        playlist_id: currentPlaylist,
+        video_id: currentVideo
+      }
+    }
+  })
+}
+
 // const updatePlaylist = formData
 
 module.exports = {
   createPlaylist,
   indexPlaylists,
+  showPlaylist,
+  addVideoToPlaylist,
   // updatePlaylist,
   indexVideos,
   showVideo

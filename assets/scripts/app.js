@@ -37,4 +37,5 @@ $(() => {
   }).hide()
   $('#playlist-form').on('submit', resEvents.onCreatePlaylist).hide()
   $('#add-to-playlist').on('click', resEvents.onChoosePlaylist)
+  $('body').on('click', '.show', resEvents.onShowPlaylistEpisodes)
 })

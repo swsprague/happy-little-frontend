@@ -51,6 +51,17 @@ const onViewPlaylists = data => {
     .catch(ui.viewPlaylistsFail)
 }
 
+const onShowPlaylistEpisodes = data => {
+  event.preventDefault()
+  const target = event.target
+  console.log('target is ', target)
+  const currentPlaylist = $(target).data('playlist')
+
+  api.showPlaylist(currentPlaylist)
+    .then(ui.showPlaylistEpisodes)
+    .catch(ui.showPlaylistEpisodes)
+}
+
 const onChoosePlaylist = data => {
   event.preventDefault()
 
@@ -66,7 +77,7 @@ module.exports = {
   onCreatePlaylist,
   onChoosePlaylist,
   onViewPlaylists,
-  // onUpdateGame,
+  onShowPlaylistEpisodes,
   onViewAvailableVideos,
   onRandomVideo
 

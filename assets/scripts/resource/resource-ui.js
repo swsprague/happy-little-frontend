@@ -107,22 +107,49 @@ const createPlaylistFail = function () {
 
 const viewPlaylistsSuccess = responseData => {
   store.playlists = responseData.playlists
-  // console.log('index games success ', responseData)
+  console.log('responseData is ', responseData)
   $('#video-index').html('')
 
   store.playlists.forEach(function (playlist) {
     const playlistsHtml = (`
       <h3>Playlist Title: ${playlist.title}</h3>
-      <h4>Number of Episodes: ${store.playlists.length}</h4>
-      <button class="change-title btn btn-primary">Change Title</button>
-      <button class="add btn btn-primary">Add Episode</button>
-      <button class="remove btn btn-primary">Remove Episode</button>
+      <h4>Number of Episodes: ${playlist.videos.length}</h4>
+      <button class="change-title btn btn-primary col-mb-3">Change Title</button>
+      <button class="add btn btn-primary col-mb-3">Add Episodes</button>
+      <button class="show btn btn-primary col-mb-3" data-playlist="${playlist.id}">Show Episodes</button>
 
       <br>
     `)
 
     $('#video-index').append(playlistsHtml)
   })
+}
+
+const showPlaylistEpisodes = responseData => {
+  store.playlist = responseData.playlist
+
+  console.log('store.playlist is ', store.playlist)
+  $('#episodes-index').html('')
+
+  $('#total-playlists').text(`Current Playlist: ${store.playlist}`).show()
+
+  if (store.playlist.videos.length === 0) {
+    $('#total-playlists').text('Selected Playlist Has No Videos!')
+  } else {
+    store.playlist.videos.forEach(function (video) {
+      const episodeHtml = (`
+        <h3>Episode Title: ${video.name}</h3>
+        <h4>Episode Number: ${video.episode_number}</h4>
+        <h4>Original Air Date: ${video.air_date}</h4>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/${video.youtube_id}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <p>Description: ${video.description}</p>
+
+        <br>
+    `)
+
+      $('#episodes-index').html(episodeHtml)
+    })
+  }
 }
 
 const viewPlaylistsFail = function () {
@@ -164,5 +191,6 @@ module.exports = {
   showRandomVideoSuccess,
   showVideoFail,
   createPlaylistSuccess,
-  createPlaylistFail
+  createPlaylistFail,
+  showPlaylistEpisodes
 }
