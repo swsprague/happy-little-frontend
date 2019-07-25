@@ -1,14 +1,18 @@
 'use strict'
 
 const store = require('../store')
+const showVideosTemplate = require('../templates/video-listing.handlebars')
+const addStateShowVidsTemplate = require('../templates/add-state-video-index.handlebars')
+const showRandomVidsTemplate = require('../templates/random-video-show.handlebars')
 
 const successMessage = message => {
-  $('#video-status').text(message).show()
+  $('#video-status').text(message).fadeIn(1000)
   $('#video-status').addClass('success')
   $('#video-status').removeClass('failure')
 
   // clear forms
   $('form').trigger('reset')
+  $('#video-status').text(message).fadeOut(3000)
 }
 
 const failureMessage = message => {
@@ -28,20 +32,19 @@ const indexVideosSuccess = responseData => {
   // console.log('index games success ', responseData)
   $('#video-index').html('')
   $('#total-videos').text(`Total Videos: ${store.videos.length}`).show()
-
-  store.videos.forEach(function (video) {
-    const videosHtml = (`
-      <h3>Episode Title: ${video.name}</h3>
-      <h4>Episode Number: ${video.episode_number}</h4>
-      <h4>Original Air Date: ${video.air_date}</h4>
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/${video.youtube_id}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      <p>Description: ${video.description}</p>
-
-      <br>
-    `)
+  const videosHtml = showVideosTemplate({ videos: store.videos })
+  // store.videos.forEach(function (video) {
+    // const videosHtml = (`
+    //   <h3>Episode Title: ${video.name}</h3>
+    //   <h4>Episode Number: ${video.episode_number}</h4>
+    //   <h4>Original Air Date: ${video.air_date}</h4>
+    //   <iframe width="560" height="315" src="https://www.youtube.com/embed/${video.youtube_id}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    //   <p>Description: ${video.description}</p>
+    //
+    //   <br>
+    // `)
     // <button class="add-vid btn btn-primary" data-video="${video.id}">Add to Playlist</button>
-    $('#video-index').append(videosHtml)
-  })
+  $('#video-index').append(videosHtml)
 }
 
 // playlist="${playlist.playlist.id}
@@ -58,21 +61,20 @@ const addStateIndexVideosSuccess = responseData => {
   // const playlist = store.playlist
   $('#video-index').html('')
   // $('#total-videos').text(`Total Videos: ${store.videos.length}`).show()
+  const videosHtml = addStateShowVidsTemplate({ videos: store.videos })
+  // store.videos.forEach(function (video) {
+    // const videosHtml = (`
+    //   <h3>Episode Title: ${video.name}</h3>
+    //   <h4>Episode Number: ${video.episode_number}</h4>
+    //   <h4>Original Air Date: ${video.air_date}</h4>
+    //   <button class="add-vid btn btn-primary" data-video="${video.id}">Add to Playlist</button>
+    //   <iframe width="560" height="315" src="https://www.youtube.com/embed/${video.youtube_id}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    //   <p>Description: ${video.description}</p>
+    //
+    //   <br>
+    // `)
 
-  store.videos.forEach(function (video) {
-    const videosHtml = (`
-      <h3>Episode Title: ${video.name}</h3>
-      <h4>Episode Number: ${video.episode_number}</h4>
-      <h4>Original Air Date: ${video.air_date}</h4>
-      <button class="add-vid btn btn-primary" data-video="${video.id}">Add to Playlist</button>
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/${video.youtube_id}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      <p>Description: ${video.description}</p>
-
-      <br>
-    `)
-
-    $('#video-index').append(videosHtml)
-  })
+  $('#video-index').append(videosHtml)
 }
 
 const addStateIndexVideosFail = function () {
@@ -87,16 +89,17 @@ const showRandomVideoSuccess = responseData => {
   $('#video-index').html('')
   // $('#total-videos').text(`Total Videos: ${store.videos.length}`).show()
 
-  const videosHtml = (`
-      <h3>Episode Title: ${store.video.name}</h3>
-      <h4>Episode Number: ${store.video.episode_number}</h4>
-      <h4>Original Air Date: ${store.video.air_date}</h4>
-      <button id="add-to-playlist" class="btn btn-primary" data-rando-vid="${store.video.id}">Add to Playlist</button>
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/${store.video.youtube_id}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      <p>Description: ${store.video.description}</p>
-
-      <br>
-    `)
+  const videosHtml = showRandomVidsTemplate({ video: store.video })
+  // (`
+  //     <h3>Episode Title: ${store.video.name}</h3>
+  //     <h4>Episode Number: ${store.video.episode_number}</h4>
+  //     <h4>Original Air Date: ${store.video.air_date}</h4>
+  //     <button id="add-to-playlist" class="btn btn-primary" data-rando-vid="${store.video.id}">Add to Playlist</button>
+  //     <iframe width="560" height="315" src="https://www.youtube.com/embed/${store.video.youtube_id}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  //     <p>Description: ${store.video.description}</p>
+  //
+  //     <br>
+  //   `)
 
   $('#video-index').append(videosHtml)
 }
@@ -168,6 +171,7 @@ const addVideoToPlaylistSuccess = responseData => {
   // if (store.playlist.videos.indexOf(event.target.data('video') === -1) {
   //   successMessage('Added Video To Playlist')
   // }
+  // successMessage('Added Video To Playlist').fadeIn(1000)
   successMessage('Added Video To Playlist')
 }
 

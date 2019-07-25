@@ -94,12 +94,13 @@ const onAddVideoToPlaylist = data => {
 const onAddPlaylistToVideo = data => {
   event.preventDefault()
   const target = event.target
+  const playlistTitle = $(target).data('title')
+  $('#current-playlist').text(`Added To: ${playlistTitle}`).fadeIn(1000)
   console.log('target is ', target)
   console.log('store.video.id is ', store.video.id)
   const currentPlaylist = $(target).data('playlist')
-  const playlistTitle = $(target).data('title')
   const currentVideo = store.video.id
-  $('#current-playlist').text(`Added To: ${playlistTitle}`)
+  $('#current-playlist').text(`Added To: ${playlistTitle}`).fadeOut(3000)
 
   // console.log('cp is ', currentPlaylist)
 
