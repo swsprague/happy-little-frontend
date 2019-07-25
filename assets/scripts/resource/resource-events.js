@@ -58,9 +58,20 @@ const onShowPlaylistEpisodes = data => {
   const currentPlaylist = $(target).data('playlist')
 
   api.showPlaylist(currentPlaylist)
-    .then(ui.showPlaylistEpisodes)
-    .catch(console.error)
+    .then(ui.showPlaylistEpisodesSuccess)
+    .catch(ui.showPlaylistEpisodesFail)
 }
+
+// const onShowPlaylistLength = data => {
+//   event.preventDefault()
+//   const target = event.target
+//   console.log('target is ', target)
+//   const currentPlaylist = $(target).data('playlist')
+//
+//   api.showPlaylist(currentPlaylist)
+//     .then(ui.showPlaylistLength)
+//     .catch(console.error)
+// }
 
 const onAddVideoToPlaylist = data => {
   event.preventDefault()
@@ -69,11 +80,34 @@ const onAddVideoToPlaylist = data => {
   console.log('store.playlist.id is ', store.playlist)
   const currentPlaylist = store.playlist.id
   const currentVideo = $(target).data('video')
+  $('#current-playlist').text(`Currently Adding To: ${store.playlist.title}`)
+
   // console.log('cp is ', currentPlaylist)
 
   api.addVideoToPlaylist(currentPlaylist, currentVideo)
-    .then(ui.addVideoToPlaylist)
-    .catch(console.error)
+    .then(ui.addVideoToPlaylistSuccess)
+    // .then(api.onShowPlaylistLength(currentPlaylist))
+    // .then(ui.showPlaylistLength)
+    .catch(ui.addVideoToPlaylistFail)
+}
+
+const onAddPlaylistToVideo = data => {
+  event.preventDefault()
+  const target = event.target
+  console.log('target is ', target)
+  console.log('store.video.id is ', store.video.id)
+  const currentPlaylist = $(target).data('playlist')
+  const playlistTitle = $(target).data('title')
+  const currentVideo = store.video.id
+  $('#current-playlist').text(`Added To: ${playlistTitle}`)
+
+  // console.log('cp is ', currentPlaylist)
+
+  api.addVideoToPlaylist(currentPlaylist, currentVideo)
+    .then(ui.addVideoToPlaylistSuccess)
+    // .then(api.onShowPlaylistLength(currentPlaylist))
+    // .then(ui.showPlaylistLength)
+    .catch(ui.addVideoToPlaylistFail)
 }
 
 const onChoosePlaylist = data => {
@@ -85,6 +119,14 @@ const onChoosePlaylist = data => {
   api.indexPlaylists()
     .then(ui.choosePlaylistSuccess)
     .catch(ui.choosePlaylistFail)
+}
+
+const onSetAddState = data => {
+  event.preventDefault()
+
+  api.indexVideos()
+    .then(ui.addStateIndexVideosSuccess)
+    .catch(ui.addStateIndexVideosFail)
 }
 
 const onSetDeleteState = data => {
@@ -114,7 +156,10 @@ module.exports = {
   onViewAvailableVideos,
   onRandomVideo,
   onAddVideoToPlaylist,
+  onSetAddState,
   onSetDeleteState,
-  onDeletePlaylist
+  onDeletePlaylist,
+  onAddPlaylistToVideo
+  // onShowPlaylistLength
 
 }
