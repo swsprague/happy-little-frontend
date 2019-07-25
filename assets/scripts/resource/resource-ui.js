@@ -5,6 +5,11 @@ const showVideosTemplate = require('../templates/video-listing.handlebars')
 const addStateShowVidsTemplate = require('../templates/add-state-video-index.handlebars')
 const showRandomVidsTemplate = require('../templates/random-video-show.handlebars')
 const createPlaylistTemplate = require('../templates/create-playlist.handlebars')
+const viewPlaylistTemplate = require('../templates/view-playlist-listing.handlebars')
+const viewPlaylistEpisodesTemplate = require('../templates/view-playlist-episodes.handlebars')
+const choosePlaylistTemplate = require('../templates/choose-playlist-listing.handlebars')
+const changePlaylistTemplate = require('../templates/change-playlist.handlebars')
+const deletePlaylistTemplate = require('../templates/delete-playlist.handlebars')
 
 const successMessage = message => {
   $('#video-status').text(message).fadeIn(1000)
@@ -162,19 +167,20 @@ const viewPlaylistsSuccess = responseData => {
   if (store.playlists.length === 0) {
     $('#video-index').text('You haven\'t made any playlists yet!')
   } else {
-    store.playlists.forEach(function (playlist) {
-      const playlistsHtml = (`
-        <h3>Playlist Title: ${playlist.title}</h3>
-        <h4>Number of Episodes: ${playlist.videos.length}</h4>
-        <button class="change-title btn btn-primary col-mb-3" data-change="${playlist.id}">Change Title</button>
-        <button class="show btn btn-primary col-mb-3" data-playlist="${playlist.id}">Show Episodes</button>
+    const playlistsHtml = viewPlaylistTemplate({ playlists: store.playlists })
 
-
-        <br>
-        `)
-      // <button class="add-state btn btn-primary col-mb-3" data-playlist="${playlist.id}">Add Episodes</button>
-      $('#video-index').append(playlistsHtml)
-    })
+    // store.playlists.forEach(function (playlist) {
+    // (`
+    //     <h3>Playlist Title: ${playlist.title}</h3>
+    //     <h4>Number of Episodes: ${playlist.videos.length}</h4>
+    //     <button class="change-title btn btn-primary col-mb-3" data-change="${playlist.id}">Change Title</button>
+    //     <button class="show btn btn-primary col-mb-3" data-playlist="${playlist.id}">Show Episodes</button>
+    //
+    //
+    //     <br>
+    //     `)
+    // <button class="add-state btn btn-primary col-mb-3" data-playlist="${playlist.id}">Add Episodes</button>
+    $('#video-index').append(playlistsHtml)
     // store.playlistID = playlist.id
   }
 }
@@ -219,19 +225,20 @@ const showPlaylistEpisodesSuccess = responseData => {
   if (store.playlist.videos.length === 0) {
     $('#total-playlists').text('Selected Playlist Has No Videos!')
   } else {
-    store.playlist.videos.forEach(function (video) {
-      const episodeHtml = (`
-        <h3>Episode Title: ${video.name}</h3>
-        <h4>Episode Number: ${video.episode_number}</h4>
-        <h4>Original Air Date: ${video.air_date}</h4>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/${video.youtube_id}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <p>Description: ${video.description}</p>
+    const episodeHtml = viewPlaylistEpisodesTemplate({ videos: store.playlist.videos })
+    //
+    //   store.playlist.videos.forEach(function (video) {
+    //   (`
+    //     <h3>Episode Title: ${video.name}</h3>
+    //     <h4>Episode Number: ${video.episode_number}</h4>
+    //     <h4>Original Air Date: ${video.air_date}</h4>
+    //     <iframe width="560" height="315" src="https://www.youtube.com/embed/${video.youtube_id}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    //     <p>Description: ${video.description}</p>
+    //
+    //     <br>
+    // `)
 
-        <br>
-    `)
-
-      $('#episodes-index').append(episodeHtml)
-    })
+    $('#episodes-index').append(episodeHtml)
   }
 }
 
@@ -246,14 +253,15 @@ const choosePlaylistSuccess = responseData => {
   $('#playlist-index').html('')
   $('#total-playlists').text(`Total Playlists: ${store.playlists.length}`)
 
-  store.playlists.forEach(function (playlist) {
-    const playlistsHtml = (`
-      <button class="playlist-add btn btn-primary col-mb-3" data-playlist="${playlist.id}" data-title="${playlist.title}">${playlist.title}</button>
-      <br>
-    `)
+  const playlistsHtml = choosePlaylistTemplate({ playlists: store.playlists })
 
-    $('#total-playlists').append(playlistsHtml)
-  })
+  // store.playlists.forEach(function (playlist) {
+  // (`
+  //   <button class="playlist-add btn btn-primary col-mb-3" data-playlist="${playlist.id}" data-title="${playlist.title}">${playlist.title}</button>
+  //   <br>
+  // `)
+
+  $('#total-playlists').append(playlistsHtml)
 }
 
 const choosePlaylistFail = function () {
@@ -268,19 +276,20 @@ const setChangeStateSuccess = function () {
   $('#playlist-form').hide()
   $('#show-delete').hide()
 
-  playlists.forEach(function (playlist) {
-    const changeFormHtml = (`
-      <h3>Current Playlist Title: ${playlist.title}</h3>
-      <form id="change-title-form" class="col-md-6" data-conf-playlist="${playlist.id}">
-        <input class="form-control mb-1" type="text" name="playlist[title]" placeholder="Change Playlist Title">
-        <button class="confirm-change btn btn-primary">Confirm Title Change</button>
-      </form>
+  const changeFormHtml = changePlaylistTemplate({ playlists: playlists })
 
-      <br>
-    `)
+  // playlists.forEach(function (playlist) {
+  // (`
+  //   <h3>Current Playlist Title: ${playlist.title}</h3>
+  //   <form id="change-title-form" class="col-md-6" data-conf-playlist="${playlist.id}">
+  //     <input class="form-control mb-1" type="text" name="playlist[title]" placeholder="Change Playlist Title">
+  //     <button class="confirm-change btn btn-primary">Confirm Title Change</button>
+  //   </form>
+  //
+  //   <br>
+  // `)
 
-    $('#video-index').append(changeFormHtml)
-  })
+  $('#video-index').append(changeFormHtml)
 }
 
 const setChangeStateFail = function () {
@@ -308,18 +317,19 @@ const setDeleteStateSuccess = () => {
   if (playlists.length === 0) {
     $('#video-index').text('No Playlists Available to Delete!')
   } else {
-    playlists.forEach(function (playlist) {
-      const playlistsHtml = (`
-        <h3>Playlist Title: ${playlist.title}</h3>
-        <h4>Number of Episodes: ${playlist.videos.length}</h4>
-        <button class="delete-playlist btn btn-primary col-mb-3" data-del-playlist="${playlist.id}">Delete This Playlist</button>
+    const playlistsHtml = deletePlaylistTemplate({ playlists: playlists })
 
+    // playlists.forEach(function (playlist) {
+    //   (`
+    //     <h3>Playlist Title: ${playlist.title}</h3>
+    //     <h4>Number of Episodes: ${playlist.videos.length}</h4>
+    //     <button class="delete-playlist btn btn-primary col-mb-3" data-del-playlist="${playlist.id}">Delete This Playlist</button>
+    //
+    //
+    //     <br>
+    //   `)
 
-        <br>
-      `)
-
-      $('#video-index').append(playlistsHtml)
-    })
+    $('#video-index').append(playlistsHtml)
   }
 }
 

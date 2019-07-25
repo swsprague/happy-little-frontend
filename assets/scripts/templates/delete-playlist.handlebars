@@ -1,0 +1,10 @@
+{{#each playlists as |playlist|}} {{!-- 'block' helper! --}}
+  {{!-- {{log book}} --}}
+  <!-- <section data-id="{{book.id}}"> -->
+    <h3>Playlist Title: {{playlist.title}}</h3>
+    <h4>Number of Episodes: {{playlist.videos.length}}</h4>
+    <button class="delete-playlist btn btn-primary col-mb-3" data-del-playlist="{{playlist.id}}">Delete This Playlist</button>
+
+    <br>
+
+{{/each}}

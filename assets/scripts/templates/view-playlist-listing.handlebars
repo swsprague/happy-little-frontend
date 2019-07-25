@@ -1,0 +1,11 @@
+{{#each playlists as |playlist|}} {{!-- 'block' helper! --}}
+  {{!-- {{log book}} --}}
+  <!-- <section data-id="{{book.id}}"> -->
+    <h3>Playlist Title: {{playlist.title}}</h3>
+    <h4>Number of Episodes: {{playlist.videos.length}}</h4>
+    <button class="change-title btn btn-primary col-mb-3" data-change="{{playlist.id}}">Change Title</button>
+    <button class="show btn btn-primary col-mb-3" data-playlist="{{playlist.id}}">Show Episodes</button>
+
+    <br>
+
+{{/each}}

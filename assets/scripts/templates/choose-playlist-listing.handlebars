@@ -1,0 +1,7 @@
+{{#each playlists as |playlist|}} {{!-- 'block' helper! --}}
+  {{!-- {{log book}} --}}
+  <!-- <section data-id="{{book.id}}"> -->
+  <button class="playlist-add btn btn-primary col-mb-3" data-playlist="{{playlist.id}}" data-title="{{playlist.title}}">{{playlist.title}}</button>
+  <br>
+
+{{/each}}

@@ -1,0 +1,12 @@
+{{#each playlists as |playlist|}} {{!-- 'block' helper! --}}
+  {{!-- {{log book}} --}}
+  <!-- <section data-id="{{book.id}}"> -->
+  <h3>Current Playlist Title: {{playlist.title}}</h3>
+  <form id="change-title-form" class="col-md-6" data-conf-playlist="{{playlist.id}}">
+    <input class="form-control mb-1" type="text" name="playlist[title]" placeholder="Change Playlist Title">
+    <button class="confirm-change btn btn-primary">Confirm Title Change</button>
+  </form>
+
+  <br>
+
+{{/each}}
