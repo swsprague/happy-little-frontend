@@ -11,7 +11,7 @@ const onViewAvailableVideos = data => {
   //  const games = store.games
   event.preventDefault()
 
-  $('#video-status').show()
+  $('#video-status').text('')
   // $('#hide-videos').show()
   // $('#show-video').show()
   $('#total-videos').show()
@@ -81,7 +81,7 @@ const onAddVideoToPlaylist = data => {
   // console.log('store.playlist.id is ', store.playlist)
   const currentPlaylist = store.playlist.id
   const currentVideo = $(target).data('video')
-  $('#current-playlist').text(`Currently Adding To: ${store.playlist.title}`)
+  $('#current-playlist').text(`Currently Adding To: ${store.playlist.title}`).show()
 
   // console.log('cp is ', currentPlaylist)
 

@@ -43,6 +43,7 @@ const indexVideosSuccess = responseData => {
   $('#playlist-form').hide()
   $('#show-delete').hide()
   $('#change-pw').hide()
+  $('#current-playlist').hide()
   $('#new-playlist').show()
   $('#show-change-pw').show()
   const videosHtml = showVideosTemplate({ videos: store.videos })
@@ -102,6 +103,7 @@ const showRandomVideoSuccess = responseData => {
   $('#playlist-form').hide()
   $('#show-delete').hide()
   $('#change-pw').hide()
+  $('#current-playlist').hide()
   $('#total-videos').html('')
   $('#new-playlist').show()
   $('#show-change-pw').show()
@@ -163,6 +165,7 @@ const viewPlaylistsSuccess = responseData => {
   $('#change-pw').hide()
   $('#show-change-pw').show()
   $('#new-playlist').show()
+  $('#current-playlist').hide()
 
   if (store.playlists.length === 0) {
     $('#video-index').text('You haven\'t made any playlists yet!')
