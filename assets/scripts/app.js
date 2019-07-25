@@ -13,11 +13,13 @@ $(() => {
   // your JS code goes here
   $('#show-sign-up').on('click', function () {
     $('#sign-up').show()
+    $('.sign-up').show()
     $('#show-sign-up').hide()
   })
   $('#sign-up').on('submit', authEvents.onSignUp).hide()
   $('#show-sign-in').on('click', function () {
     $('#sign-in').show()
+    $('.sign-in').show()
     $('#show-sign-in').hide()
   })
   $('#sign-in').on('submit', authEvents.onSignIn).hide()
@@ -25,6 +27,8 @@ $(() => {
   $('#show-change-pw').on('click', function () {
     $('#change-pw').show()
     $('#show-change-pw').hide()
+    $('#playlist-form').hide()
+    $('#new-playlist').show()
   }).hide()
   $('#change-pw').on('submit', authEvents.onChangePw).hide()
   $('#sign-out').on('click', authEvents.onSignOut).hide()
@@ -40,6 +44,9 @@ $(() => {
     $('#video-index').html('')
     $('#playlist-index').html('')
     $('#episodes-index').html('')
+    $('#show-delete').hide()
+    $('#change-pw').hide()
+    $('#show-change-pw').show()
   }).hide()
   $('#playlist-form').on('submit', resEvents.onCreatePlaylist).hide()
   $('body').on('click', '.change-title', resEvents.onSetChangeState)

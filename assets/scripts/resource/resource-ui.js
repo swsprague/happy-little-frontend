@@ -26,67 +26,81 @@ const failureMessage = message => {
 
 const indexVideosSuccess = responseData => {
   store.videos = responseData.videos
-  console.log('responseData is ', responseData)
-  console.log('store playlist is ', store.playlistId)
+  // console.log('responseData is ', responseData)
+  // console.log('store playlist is ', store.playlistId)
   // const playlist = store.playlist
   // console.log('index games success ', responseData)
   $('#video-index').html('')
+  $('#episodes-index').html('')
+  $('#total-playlists').html('')
   $('#total-videos').text(`Total Videos: ${store.videos.length}`).show()
+  $('#playlist-form').hide()
+  $('#show-delete').hide()
+  $('#change-pw').hide()
+  $('#new-playlist').show()
+  $('#show-change-pw').show()
   const videosHtml = showVideosTemplate({ videos: store.videos })
   // store.videos.forEach(function (video) {
-    // const videosHtml = (`
-    //   <h3>Episode Title: ${video.name}</h3>
-    //   <h4>Episode Number: ${video.episode_number}</h4>
-    //   <h4>Original Air Date: ${video.air_date}</h4>
-    //   <iframe width="560" height="315" src="https://www.youtube.com/embed/${video.youtube_id}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    //   <p>Description: ${video.description}</p>
-    //
-    //   <br>
-    // `)
-    // <button class="add-vid btn btn-primary" data-video="${video.id}">Add to Playlist</button>
+  // const videosHtml = (`
+  //   <h3>Episode Title: ${video.name}</h3>
+  //   <h4>Episode Number: ${video.episode_number}</h4>
+  //   <h4>Original Air Date: ${video.air_date}</h4>
+  //   <iframe width="560" height="315" src="https://www.youtube.com/embed/${video.youtube_id}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  //   <p>Description: ${video.description}</p>
+  //
+  //   <br>
+  // `)
+  // <button class="add-vid btn btn-primary" data-video="${video.id}">Add to Playlist</button>
   $('#video-index').append(videosHtml)
 }
 
 // playlist="${playlist.playlist.id}
 
 const indexVideosFail = function () {
-  // console.log('Index Games Failed ', error)
   failureMessage('Cannot Load Videos')
 }
 
 const addStateIndexVideosSuccess = responseData => {
   store.videos = responseData.videos
-  console.log('responseData is ', responseData)
+  // console.log('responseData is ', responseData)
   // console.log('store playlist is ', store.playlistID)
   // const playlist = store.playlist
   $('#video-index').html('')
+  $('#show-delete').hide()
   // $('#total-videos').text(`Total Videos: ${store.videos.length}`).show()
   const videosHtml = addStateShowVidsTemplate({ videos: store.videos })
   // store.videos.forEach(function (video) {
-    // const videosHtml = (`
-    //   <h3>Episode Title: ${video.name}</h3>
-    //   <h4>Episode Number: ${video.episode_number}</h4>
-    //   <h4>Original Air Date: ${video.air_date}</h4>
-    //   <button class="add-vid btn btn-primary" data-video="${video.id}">Add to Playlist</button>
-    //   <iframe width="560" height="315" src="https://www.youtube.com/embed/${video.youtube_id}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    //   <p>Description: ${video.description}</p>
-    //
-    //   <br>
-    // `)
+  // const videosHtml = (`
+  //   <h3>Episode Title: ${video.name}</h3>
+  //   <h4>Episode Number: ${video.episode_number}</h4>
+  //   <h4>Original Air Date: ${video.air_date}</h4>
+  //   <button class="add-vid btn btn-primary" data-video="${video.id}">Add to Playlist</button>
+  //   <iframe width="560" height="315" src="https://www.youtube.com/embed/${video.youtube_id}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  //   <p>Description: ${video.description}</p>
+  //
+  //   <br>
+  // `)
 
   $('#video-index').append(videosHtml)
 }
 
 const addStateIndexVideosFail = function () {
-  // console.log('Index Games Failed ', error)
   failureMessage('Cannot Load Videos')
 }
 
 const showRandomVideoSuccess = responseData => {
   store.video = responseData.video
-  console.log('responseData is ', responseData)
-  console.log('store video is ', store.video)
+  // console.log('responseData is ', responseData)
+  // console.log('store video is ', store.video)
   $('#video-index').html('')
+  $('#playlist-form').hide()
+  $('#show-delete').hide()
+  $('#change-pw').hide()
+  $('#total-videos').html('')
+  $('#new-playlist').show()
+  $('#show-change-pw').show()
+  $('#total-playlists').html('')
+  $('#episodes-index').html('')
   // $('#total-videos').text(`Total Videos: ${store.videos.length}`).show()
 
   const videosHtml = showRandomVidsTemplate({ video: store.video })
@@ -105,7 +119,6 @@ const showRandomVideoSuccess = responseData => {
 }
 
 const showVideoFail = function () {
-  // console.log('Index Games Failed ', error)
   failureMessage('Cannot Load Video')
 }
 
@@ -126,48 +139,52 @@ const createPlaylistSuccess = responseData => {
 }
 
 const createPlaylistFail = function () {
-  // console.log('Index Games Failed ', error)
   failureMessage('Unable to Create Playlist')
 }
 
 const viewPlaylistsSuccess = responseData => {
   store.playlists = responseData.playlists
-  console.log('responseData is ', responseData)
+  // console.log('playlists length is ', store.playlists.length)
+  // console.log('responseData is ', responseData)
   $('#video-status').html('')
   $('#show-delete').show()
   $('#video-index').html('')
   $('#total-videos').html('')
   $('#total-playlists').html('')
   $('#episodes-index').html('')
+  $('#change-pw').hide()
+  $('#show-change-pw').show()
   $('#new-playlist').show()
 
-  store.playlists.forEach(function (playlist) {
-    const playlistsHtml = (`
-      <h3>Playlist Title: ${playlist.title}</h3>
-      <h4>Number of Episodes: ${playlist.videos.length}</h4>
-      <button class="change-title btn btn-primary col-mb-3" data-change="${playlist.id}">Change Title</button>
-      <button class="show btn btn-primary col-mb-3" data-playlist="${playlist.id}">Show Episodes</button>
+  if (store.playlists.length === 0) {
+    $('#video-index').text('You haven\'t made any playlists yet!')
+  } else {
+    store.playlists.forEach(function (playlist) {
+      const playlistsHtml = (`
+        <h3>Playlist Title: ${playlist.title}</h3>
+        <h4>Number of Episodes: ${playlist.videos.length}</h4>
+        <button class="change-title btn btn-primary col-mb-3" data-change="${playlist.id}">Change Title</button>
+        <button class="show btn btn-primary col-mb-3" data-playlist="${playlist.id}">Show Episodes</button>
 
 
-      <br>
-    `)
-    // <button class="add-state btn btn-primary col-mb-3" data-playlist="${playlist.id}">Add Episodes</button>
-    $('#video-index').append(playlistsHtml)
-
+        <br>
+        `)
+      // <button class="add-state btn btn-primary col-mb-3" data-playlist="${playlist.id}">Add Episodes</button>
+      $('#video-index').append(playlistsHtml)
+    })
     // store.playlistID = playlist.id
-  })
+  }
 }
 
 const viewPlaylistsFail = function () {
-  // console.log('Index Games Failed ', error)
   failureMessage('No Playlists Found')
 }
 
 const addVideoToPlaylistSuccess = responseData => {
   store.videos = responseData.videos
   store.playlists = responseData.playlists
-  console.log('store.videos is ', store.videos)
-  console.log('store.playlists is ', store.playlists)
+  // console.log('store.videos is ', store.videos)
+  // console.log('store.playlists is ', store.playlists)
   // if (store.playlist.videos.indexOf(event.target.data('video') === -1) {
   //   successMessage('Added Video To Playlist')
   // }
@@ -188,10 +205,11 @@ const addVideoToPlaylistFail = function () {
 const showPlaylistEpisodesSuccess = responseData => {
   store.playlist = responseData.playlist
 
-  console.log('store.playlist is ', store.playlist)
+  // console.log('store.playlist is ', store.playlist)
   $('#episodes-index').html('')
   $('#video-index').html('')
-
+  $('#playlist-form').hide()
+  $('#show-delete').hide()
   $('#total-videos').text(`Current Playlist: ${store.playlist.title}`)
   $('#total-playlists').text(`Number of Episodes: ${store.playlist.videos.length}`)
 
@@ -220,7 +238,7 @@ const showPlaylistEpisodesFail = function () {
 
 const choosePlaylistSuccess = responseData => {
   store.playlists = responseData.playlists
-  console.log('what is store.playlists ', store.playlists)
+  // console.log('what is store.playlists ', store.playlists)
 
   $('#playlist-index').html('')
   $('#total-playlists').text(`Total Playlists: ${store.playlists.length}`)
@@ -241,9 +259,11 @@ const choosePlaylistFail = function () {
 
 const setChangeStateSuccess = function () {
   const playlists = store.playlists
-  console.log('playlists at setChange ', playlists)
+  // console.log('playlists at setChange ', playlists)
 
   $('#video-index').html('')
+  $('#playlist-form').hide()
+  $('#show-delete').hide()
 
   playlists.forEach(function (playlist) {
     const changeFormHtml = (`
@@ -261,7 +281,6 @@ const setChangeStateSuccess = function () {
 }
 
 const setChangeStateFail = function () {
-  // console.log('Index Games Failed ', error)
   failureMessage('Cannot Edit Selected Playlist')
 }
 
@@ -278,27 +297,30 @@ const changePlaylistTitleFail = function () {
 
 const setDeleteStateSuccess = () => {
   const playlists = store.playlists
-  console.log('playlists are ', playlists)
+  // console.log('playlists are ', playlists)
   $('#video-index').html('')
   $('#playlist-form').hide()
   $('#new-playlist').show()
 
-  playlists.forEach(function (playlist) {
-    const playlistsHtml = (`
-      <h3>Playlist Title: ${playlist.title}</h3>
-      <h4>Number of Episodes: ${playlist.videos.length}</h4>
-      <button class="delete-playlist btn btn-primary col-mb-3" data-del-playlist="${playlist.id}">Delete This Playlist</button>
+  if (playlists.length === 0) {
+    $('#video-index').text('No Playlists Available to Delete!')
+  } else {
+    playlists.forEach(function (playlist) {
+      const playlistsHtml = (`
+        <h3>Playlist Title: ${playlist.title}</h3>
+        <h4>Number of Episodes: ${playlist.videos.length}</h4>
+        <button class="delete-playlist btn btn-primary col-mb-3" data-del-playlist="${playlist.id}">Delete This Playlist</button>
 
 
-      <br>
-    `)
+        <br>
+      `)
 
-    $('#video-index').append(playlistsHtml)
-  })
+      $('#video-index').append(playlistsHtml)
+    })
+  }
 }
 
 const setDeleteStateFail = function () {
-  // console.log('Index Games Failed ', error)
   failureMessage('No Playlists To Delete!')
 }
 

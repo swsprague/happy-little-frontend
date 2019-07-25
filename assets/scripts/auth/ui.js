@@ -21,7 +21,7 @@ const failureMessage = message => {
 }
 
 const signUpSuccessful = () => {
-  successMessage('You Signed Up Successfully - Please Sign In To Play!')
+  successMessage('You Signed Up Successfully - Sign In To Ross-O-Mize!')
   $('#sign-up').hide()
 }
 

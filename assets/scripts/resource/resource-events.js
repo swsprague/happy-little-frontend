@@ -24,7 +24,8 @@ const onViewAvailableVideos = data => {
 const onRandomVideo = event => {
   event.preventDefault()
 
-  api.showVideo(resourceLogic.getRandomNumber(1, 26))
+  // change second number to total episode number each time eps are added
+  api.showVideo(resourceLogic.getRandomNumber(1, 13))
     .then(ui.showRandomVideoSuccess)
     .catch(ui.showVideoFail)
 }
@@ -54,7 +55,7 @@ const onViewPlaylists = data => {
 const onShowPlaylistEpisodes = data => {
   event.preventDefault()
   const target = event.target
-  console.log('target is ', target)
+  // console.log('target is ', target)
   const currentPlaylist = $(target).data('playlist')
 
   api.showPlaylist(currentPlaylist)
@@ -76,8 +77,8 @@ const onShowPlaylistEpisodes = data => {
 const onAddVideoToPlaylist = data => {
   event.preventDefault()
   const target = event.target
-  console.log('target is ', target)
-  console.log('store.playlist.id is ', store.playlist)
+  // console.log('target is ', target)
+  // console.log('store.playlist.id is ', store.playlist)
   const currentPlaylist = store.playlist.id
   const currentVideo = $(target).data('video')
   $('#current-playlist').text(`Currently Adding To: ${store.playlist.title}`)
@@ -96,8 +97,8 @@ const onAddPlaylistToVideo = data => {
   const target = event.target
   const playlistTitle = $(target).data('title')
   $('#current-playlist').text(`Added To: ${playlistTitle}`).fadeIn(1000)
-  console.log('target is ', target)
-  console.log('store.video.id is ', store.video.id)
+  // console.log('target is ', target)
+  // console.log('store.video.id is ', store.video.id)
   const currentPlaylist = $(target).data('playlist')
   const currentVideo = store.video.id
   $('#current-playlist').text(`Added To: ${playlistTitle}`).fadeOut(3000)
@@ -133,7 +134,7 @@ const onSetAddState = data => {
 const onSetChangeState = data => {
   event.preventDefault()
   const target = event.target
-  console.log('target is ', target)
+  // console.log('target is ', target)
   const currentPlaylist = $(target).data('change')
 
   api.showPlaylist(currentPlaylist)
@@ -146,12 +147,12 @@ const onChangePlaylistTitle = event => {
 
   const form = event.target
   const formData = getFormFields(form)
-  console.log('form is ', form)
   // console.log('form is ', form)
-  console.log('formData is ', formData)
-  console.log('store.playlist is ', store.playlist)
+  // // console.log('form is ', form)
+  // console.log('formData is ', formData)
+  // console.log('store.playlist is ', store.playlist)
   const currentPlaylist = $(form).data('conf-playlist')
-  console.log('currentPlaylist is ', currentPlaylist)
+  // console.log('currentPlaylist is ', currentPlaylist)
   api.updatePlaylist(currentPlaylist, formData)
     .then(ui.changePlaylistTitleSuccess)
     .catch(ui.changePlaylistTitleFail)
@@ -168,7 +169,7 @@ const onSetDeleteState = data => {
 const onDeletePlaylist = data => {
   event.preventDefault()
   const target = event.target
-  console.log('target is ', target)
+  // console.log('target is ', target)
   const currentPlaylist = $(target).data('del-playlist')
 
   api.deletePlaylist(currentPlaylist)
