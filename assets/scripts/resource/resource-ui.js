@@ -4,6 +4,7 @@ const store = require('../store')
 const showVideosTemplate = require('../templates/video-listing.handlebars')
 const addStateShowVidsTemplate = require('../templates/add-state-video-index.handlebars')
 const showRandomVidsTemplate = require('../templates/random-video-show.handlebars')
+const createPlaylistTemplate = require('../templates/create-playlist.handlebars')
 
 const successMessage = message => {
   $('#video-status').text(message).fadeIn(1000)
@@ -129,10 +130,12 @@ const createPlaylistSuccess = responseData => {
   $('#video-index').html('')
   // $('#total-videos').text(`Total Videos: ${store.videos.length}`).show()
 
-  const videosHtml = (`
-      <h3>Playlist: ${store.playlist.title}</h3>
-      <button class="add-state btn btn-primary col-mb-3" data-playlist="${store.playlist.id}">Add Episodes To Playlist</button>
-    `)
+  const videosHtml = createPlaylistTemplate({ playlist: store.playlist })
+
+  // (`
+  //     <h3>Playlist: ${store.playlist.title}</h3>
+  //     <button class="add-state btn btn-primary col-mb-3" data-playlist="${store.playlist.id}">Add Episodes To Playlist</button>
+  //   `)
 
   $('#video-index').append(videosHtml)
   $('#playlist-form').hide()
