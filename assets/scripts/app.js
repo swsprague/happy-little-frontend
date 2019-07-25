@@ -42,6 +42,8 @@ $(() => {
     $('#episodes-index').html('')
   }).hide()
   $('#playlist-form').on('submit', resEvents.onCreatePlaylist).hide()
+  $('body').on('click', '.change-title', resEvents.onSetChangeState)
+  $('body').on('submit', '#change-title-form', resEvents.onChangePlaylistTitle)
   $('#show-delete').on('click', resEvents.onSetDeleteState).hide()
   $('body').on('click', '#add-to-playlist', resEvents.onChoosePlaylist)
   $('body').on('click', '.playlist-add', resEvents.onAddPlaylistToVideo)

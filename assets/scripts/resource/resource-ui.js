@@ -142,7 +142,7 @@ const viewPlaylistsSuccess = responseData => {
     const playlistsHtml = (`
       <h3>Playlist Title: ${playlist.title}</h3>
       <h4>Number of Episodes: ${playlist.videos.length}</h4>
-      <button class="change-title btn btn-primary col-mb-3">Change Title</button>
+      <button class="change-title btn btn-primary col-mb-3" data-change="${playlist.id}">Change Title</button>
       <button class="show btn btn-primary col-mb-3" data-playlist="${playlist.id}">Show Episodes</button>
 
 
@@ -232,8 +232,44 @@ const choosePlaylistSuccess = responseData => {
 }
 
 const choosePlaylistFail = function () {
-  // console.log('Index Games Failed ', error)
   failureMessage('No Playlists Created Yet')
+}
+
+const setChangeStateSuccess = function () {
+  const playlists = store.playlists
+  console.log('playlists at setChange ', playlists)
+
+  $('#video-index').html('')
+
+  playlists.forEach(function (playlist) {
+    const changeFormHtml = (`
+      <h3>Current Playlist Title: ${playlist.title}</h3>
+      <form id="change-title-form" class="col-md-6" data-conf-playlist="${playlist.id}">
+        <input class="form-control mb-1" type="text" name="playlist[title]" placeholder="Change Playlist Title">
+        <button class="confirm-change btn btn-primary">Confirm Title Change</button>
+      </form>
+
+      <br>
+    `)
+
+    $('#video-index').append(changeFormHtml)
+  })
+}
+
+const setChangeStateFail = function () {
+  // console.log('Index Games Failed ', error)
+  failureMessage('Cannot Edit Selected Playlist')
+}
+
+const changePlaylistTitleSuccess = () => {
+  // const playlists = store.playlists
+  successMessage('Successfully Changed Playlist Title!')
+  // console.log('playlists are ', playlists)
+  $('#video-index').html('')
+}
+
+const changePlaylistTitleFail = function () {
+  failureMessage('Unable to Change Playlist Title')
 }
 
 const setDeleteStateSuccess = () => {
@@ -307,5 +343,9 @@ module.exports = {
   deletePlaylistSuccess,
   deletePlaylistFail,
   addStateIndexVideosSuccess,
-  addStateIndexVideosFail
+  addStateIndexVideosFail,
+  setChangeStateSuccess,
+  setChangeStateFail,
+  changePlaylistTitleSuccess,
+  changePlaylistTitleFail
 }

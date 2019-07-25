@@ -64,7 +64,7 @@ const deletePlaylist = function (currentPlaylist) {
   })
 }
 
-const updatePlaylist = function (formData, currentPlaylist) {
+const updatePlaylist = function (currentPlaylist, formData) {
   return $.ajax({
     url: config.apiUrl + '/playlists/' + currentPlaylist,
     method: 'PATCH',

@@ -129,6 +129,33 @@ const onSetAddState = data => {
     .catch(ui.addStateIndexVideosFail)
 }
 
+const onSetChangeState = data => {
+  event.preventDefault()
+  const target = event.target
+  console.log('target is ', target)
+  const currentPlaylist = $(target).data('change')
+
+  api.showPlaylist(currentPlaylist)
+    .then(ui.setChangeStateSuccess)
+    .catch(ui.setChangeStateFail)
+}
+
+const onChangePlaylistTitle = event => {
+  event.preventDefault()
+
+  const form = event.target
+  const formData = getFormFields(form)
+  console.log('form is ', form)
+  // console.log('form is ', form)
+  console.log('formData is ', formData)
+  console.log('store.playlist is ', store.playlist)
+  const currentPlaylist = $(form).data('conf-playlist')
+  console.log('currentPlaylist is ', currentPlaylist)
+  api.updatePlaylist(currentPlaylist, formData)
+    .then(ui.changePlaylistTitleSuccess)
+    .catch(ui.changePlaylistTitleFail)
+}
+
 const onSetDeleteState = data => {
   event.preventDefault()
 
@@ -159,7 +186,9 @@ module.exports = {
   onSetAddState,
   onSetDeleteState,
   onDeletePlaylist,
-  onAddPlaylistToVideo
+  onAddPlaylistToVideo,
+  onSetChangeState,
+  onChangePlaylistTitle
   // onShowPlaylistLength
 
 }
