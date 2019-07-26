@@ -1,1 +1,57 @@
+$body-bg: #00B599;
+$border-radius: 25%;
+
 @import '~bootstrap/scss/bootstrap';
+
+.row {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.the {
+  font-family: 'Jacques Francois Shadow', cursive;
+  font-size: 35px;
+
+}
+
+.ross {
+  font-family: 'Finger Paint', cursive;
+  font-size: 55px;
+  color: #97212A;
+}
+
+h1,
+h2,
+h3,
+h4,
+iframe {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  right: 0;
+}
+
+h3 {
+  font-family: 'Jacques Francois Shadow', cursive;
+  font-size: 35px;
+}
+
+.btn {
+  background-color: #095710;
+  border-color: #095710;
+  font-family: 'Finger Paint', cursive;
+}
+
+h4,
+p {
+  font-size: 28px;
+  font-family: 'Finger Paint', cursive;
+  color: #97212A;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  right: 0;
+}
