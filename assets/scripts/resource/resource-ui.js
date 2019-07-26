@@ -256,7 +256,7 @@ const choosePlaylistSuccess = responseData => {
   $('#playlist-index').html('')
   $('#total-playlists').text(`Total Playlists: ${store.playlists.length}`)
   if (store.playlists.length === 0) {
-    $('#total-playlists').text('User Has No Playlists!')
+    $('#total-playlists').text('Unable To Add - User Has No Playlists!')
   } else {
     const playlistsHtml = choosePlaylistTemplate({ playlists: store.playlists })
 
