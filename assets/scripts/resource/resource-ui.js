@@ -255,16 +255,19 @@ const choosePlaylistSuccess = responseData => {
 
   $('#playlist-index').html('')
   $('#total-playlists').text(`Total Playlists: ${store.playlists.length}`)
+  if (store.playlists.length === 0) {
+    $('#total-playlists').text('User Has No Playlists!')
+  } else {
+    const playlistsHtml = choosePlaylistTemplate({ playlists: store.playlists })
 
-  const playlistsHtml = choosePlaylistTemplate({ playlists: store.playlists })
+    // store.playlists.forEach(function (playlist) {
+    // (`
+    //   <button class="playlist-add btn btn-primary col-mb-3" data-playlist="${playlist.id}" data-title="${playlist.title}">${playlist.title}</button>
+    //   <br>
+    // `)
 
-  // store.playlists.forEach(function (playlist) {
-  // (`
-  //   <button class="playlist-add btn btn-primary col-mb-3" data-playlist="${playlist.id}" data-title="${playlist.title}">${playlist.title}</button>
-  //   <br>
-  // `)
-
-  $('#total-playlists').append(playlistsHtml)
+    $('#total-playlists').append(playlistsHtml)
+  }
 }
 
 const choosePlaylistFail = function () {
